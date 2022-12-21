@@ -10,9 +10,9 @@ class Parrot():
     self.local_files_only = local_files_only
     self.tokenizer = AutoTokenizer.from_pretrained(model_tag, use_auth_token=False, local_files_only=self.local_files_only)
     self.model     = AutoModelForSeq2SeqLM.from_pretrained(model_tag, use_auth_token=False, local_files_only=self.local_files_only)
-    self.adequacy_score = Adequacy()
-    self.fluency_score  = Fluency()
-    self.diversity_score= Diversity()
+    self.adequacy_score = Adequacy(local_files_only=local_files_only)
+    self.fluency_score  = Fluency(local_files_only=local_files_only)
+    self.diversity_score= Diversity(local_files_only=local_files_only)
 
   def rephrase(self, input_phrase, use_gpu=False, diversity_ranker="levenshtein", do_diverse=False, style=1, max_length=32, adequacy_threshold = 0.90, fluency_threshold = 0.90):
       if use_gpu:
