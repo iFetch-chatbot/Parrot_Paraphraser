@@ -80,7 +80,7 @@ class Diversity():
 
   def __init__(self, model_tag='paraphrase-distilroberta-base-v2', local_files_only=False):
     from sentence_transformers import SentenceTransformer
-    if local_files_only=local_files_only:
+    if local_files_only:
       self.diversity_model = SentenceTransformer(f"datadrive/ifetch_models/sentence-transformers_{model_tag}")
     else:
       self.diversity_model = SentenceTransformer(model_tag)
