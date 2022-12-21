@@ -2,9 +2,9 @@ import torch
 
 class Adequacy():
   
-  def __init__(self, model_tag='prithivida/parrot_adequacy_model'):
+  def __init__(self, model_tag='prithivida/parrot_adequacy_model', local_files_only=False):
     from transformers import AutoModelForSequenceClassification, AutoTokenizer
-    self.adequacy_model = AutoModelForSequenceClassification.from_pretrained(model_tag)
+    self.adequacy_model = AutoModelForSequenceClassification.from_pretrained(model_tag, local_files_only=local_files_only)
     self.tokenizer = AutoTokenizer.from_pretrained(model_tag)
 
   def filter(self, input_phrase, para_phrases, adequacy_threshold, device="cpu"):
@@ -37,9 +37,9 @@ class Adequacy():
       return adequacy_scores
 
 class Fluency():
-  def __init__(self, model_tag='prithivida/parrot_fluency_model'):
+  def __init__(self, model_tag='prithivida/parrot_fluency_model', local_files_only=False):
     from transformers import AutoModelForSequenceClassification, AutoTokenizer
-    self.fluency_model = AutoModelForSequenceClassification.from_pretrained(model_tag, num_labels=2)
+    self.fluency_model = AutoModelForSequenceClassification.from_pretrained(model_tag, num_labels=2, local_files_only=local_files_only)
     self.fluency_tokenizer = AutoTokenizer.from_pretrained(model_tag)
 
   def filter(self, para_phrases, fluency_threshold, device="cpu"):
