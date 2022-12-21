@@ -1,14 +1,15 @@
 class Parrot():
   
-  def __init__(self, model_tag="prithivida/parrot_paraphraser_on_T5", use_gpu=False):
+  def __init__(self, model_tag="prithivida/parrot_paraphraser_on_T5", use_gpu=False, local_files_only=False):
     from transformers import AutoTokenizer
     from transformers import AutoModelForSeq2SeqLM
     import pandas as pd
     from parrot.filters import Adequacy
     from parrot.filters import Fluency
     from parrot.filters import Diversity
-    self.tokenizer = AutoTokenizer.from_pretrained(model_tag, use_auth_token=False)
-    self.model     = AutoModelForSeq2SeqLM.from_pretrained(model_tag, use_auth_token=False)
+    self.local_files_only = local_files_only
+    self.tokenizer = AutoTokenizer.from_pretrained(model_tag, use_auth_token=False, local_files_only=self.local_files_only)
+    self.model     = AutoModelForSeq2SeqLM.from_pretrained(model_tag, use_auth_token=False, local_files_only=self.local_files_only)
     self.adequacy_score = Adequacy()
     self.fluency_score  = Fluency()
     self.diversity_score= Diversity()
